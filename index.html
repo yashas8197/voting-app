@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <header class="container  mt-4">
+    <h1>Poll Voting</h1>
+  </header>
+
+  <section class="container">
+    <div class="form-check mb-3">
+      <label class="form-check-label">John Doe
+        <input class="form-check-input" type="radio" name="voting" value="John Doe" />
+      </label><br>
+    </div>
+    <div class="form-check mb-3">
+      <label class="form-check-label">Alex Willam
+        <input class="form-check-input" type="radio" name="voting" value="Alex Willam" />
+      </label><br>
+    </div>
+    <div class="form-check mb-3">
+      <label class="form-check-label">Prerana Nawar
+        <input class="form-check-input" type="radio" name="voting" value="Prerana Nawar" />
+      </label>
+      <br><br>
+    </div>
+    <button class="btn btn-primary mb-3" id="voteBtn">Vote</button>
+  </section>
+
+  <section class="container mb-4">
+    <h2 class="">Results:</h2>
+    <ul class="list-group" id="votingResultsJohn"></ul>
+    <ul class="list-group" id="votingResultsAlex"></ul>
+    <ul class="list-group" id="votingResultsPrerana"></ul>
+
+  </section>
+
+  <section class="container">
+    <h2>Winner</h2>
+    <p id="pollWinner"></p>
+  </section>
+
+
+
+  <script>
+    const voteBtn = document.getElementById("voteBtn")
+    const votingResultsJohn = document.getElementById("votingResultsJohn")
+    const votingResultsAlex = document.getElementById("votingResultsAlex")
+    const votingResultsPrerana = document.getElementById("votingResultsPrerana")
+    const pollWinner = document.getElementById("pollWinner")
+    let johnVoteCounter = 1;
+    let alexVoteCounter = 1;
+    let preranaVoteCounter = 1;
+    let johnVoteCountWinner = 1;
+    let alexVoteCountWinner = 1;
+    let preranaVoteCountWinner = 1;
+
+
+    voteBtn.addEventListener("click", function () {
+      const votingPerson = document.querySelector('input[name="voting"]:checked').value
+
+      if (votingPerson === 'John Doe') {
+        votingResultsJohn.innerHTML = `<li class="list-group-item p-3">${votingPerson}: ${johnVoteCounter}</li>`
+        johnVoteCounter++
+      } else if (votingPerson === 'Alex Willam') {
+        votingResultsAlex.innerHTML = `<li class="list-group-item p-3">${votingPerson}: ${alexVoteCounter++}</li>`
+      } else {
+
+        votingResultsPrerana.innerHTML = `<li class="list-group-item p-3">${votingPerson}: ${preranaVoteCounter++}</li>`
+      }
+
+      toCompare()
+
+
+
+    })
+
+    function toCompare() {
+      if (johnVoteCounter > alexVoteCounter && johnVoteCounter > preranaVoteCounter) {
+        pollWinner.textContent = `John is the winner with ${johnVoteCountWinner++} votes!`;
+      }
+
+      if (alexVoteCounter > johnVoteCounter && alexVoteCounter > preranaVoteCounter) {
+        pollWinner.textContent = `Alex is the winner with ${alexVoteCountWinner++} votes!`;
+      }
+
+      if (preranaVoteCounter > johnVoteCounter && preranaVoteCounter > alexVoteCounter) {
+        pollWinner.textContent = `Prerana is the winner with ${preranaVoteCountWinner++} votes!`;
+      }
+
+      // Handle ties
+      if (johnVoteCounter === alexVoteCounter && johnVoteCounter > preranaVoteCounter) {
+        pollWinner.textContent = "There is a tie between John and Alex. You may need a tie-breaking rule.";
+      }
+
+      if (johnVoteCounter === preranaVoteCounter && johnVoteCounter > alexVoteCounter) {
+        pollWinner.textContent = "There is a tie between John and Prerana. You may need a tie-breaking rule.";
+      }
+
+      if (alexVoteCounter === preranaVoteCounter && alexVoteCounter > johnVoteCounter) {
+        pollWinner.textContent = "There is a tie between Alex and Prerana. You may need a tie-breaking rule.";
+      }
+
+      // Three-way tie
+      if (johnVoteCounter === alexVoteCounter && johnVoteCounter === preranaVoteCounter) {
+        pollWinner.textContent = "It's a three-way tie. You may need a tie-breaking rule.";
+      }
+
+    }
+
+
+
+  </script>
+</body>
+
+</html>
